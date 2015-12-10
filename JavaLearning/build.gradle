@@ -1,0 +1,27 @@
+apply plugin: "java"
+apply plugin: "application"
+apply plugin: "eclipse"
+
+mainClassName = "learn.xml.xmlreader"
+repositories {
+ mavenCentral()
+}
+
+
+dependencies {
+    compile 'commons-lang:commons-lang:2.6','commons-configuration:commons-configuration:1.6','com.google.code.gson:gson:2.3', 'org.apache.hadoop:hadoop-client:2.7.1'
+    
+    //joda-time:joda-time:2.2
+    //'commons-configuration:1.1',
+}
+
+defaultTasks 'buildTask'
+
+task compileTask << { 
+    System.out.println "compiling..." 
+}
+
+task buildTask(dependsOn:compileTask) << {
+ System.out.println "building..."
+}
+
