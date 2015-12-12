@@ -66,11 +66,14 @@ public class HdfsWriter
 	{
 		// 1. Get the instance of COnfiguration
 		Configuration configuration = new Configuration();
+
 		// 2. Create an InputStream to read the data from local file
 		InputStream inputStream = new BufferedInputStream(new FileInputStream(
 				localFileToWrite));
+
 		// 3. Get the HDFS instance
 		FileSystem hdfs = FileSystem.get(new URI(hdfsUri), configuration);
+
 		// 4. Open a OutputStream to write the data, this can be obtained from
 		// the FileSytem
 		OutputStream outputStream = hdfs.create(new Path(hdfsUri + hdfsPath
@@ -82,6 +85,7 @@ public class HdfsWriter
 				System.out.println("....");
 			}
 		});
+
 		try
 		{
 			IOUtils.copyBytes(inputStream, outputStream, 4096, false);

@@ -68,7 +68,7 @@ public class JsonDataGenerator
 		return ThreadLocalRandom.current().nextInt(seed);
 	}
 
-	@SuppressWarnings("deprecation")
+	// @SuppressWarnings("deprecation")
 	private JsonDataRowBean geterateData(DataConfigBean properties)
 	{
 

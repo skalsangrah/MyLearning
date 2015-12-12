@@ -5,7 +5,7 @@ import org.apache.commons.configuration.XMLConfiguration;
 
 public class HadoopConfigParser
 {
-	public HadoopConfigBean parse(String xmlConfigFile)
+	static public HadoopConfigBean parse(String xmlConfigFile)
 	{
 		HadoopConfigBean data = new HadoopConfigBean();
 

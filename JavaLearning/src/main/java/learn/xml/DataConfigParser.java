@@ -10,7 +10,7 @@ public class DataConfigParser
 {
 
 	@SuppressWarnings("unchecked")
-	public DataConfigBean parse(String xmlConfigFile)
+	public static DataConfigBean parse(String xmlConfigFile)
 	{
 		DataConfigBean data = new DataConfigBean();
 
