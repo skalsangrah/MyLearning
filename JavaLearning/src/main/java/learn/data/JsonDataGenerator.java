@@ -22,12 +22,12 @@ public class JsonDataGenerator
 	/**
 	 * @param args
 	 */
-	public String generate(DataConfigBean properties)
+	public String generate(DataConfigBean properties, String localPath)
 	{
 		Gson json = new Gson();
 		String jsonFileName = "myJson" + Integer.toString(getMyRandom(10000))
 				+ ".txt";
-		File writer = new File(jsonFileName);
+		File writer = new File(localPath + jsonFileName);
 		FileOutputStream is = null;
 		try
 		{
@@ -42,7 +42,6 @@ public class JsonDataGenerator
 
 		for (int i = 0; i < properties.getTotalRecords(); i++)
 		{
-			// System.out.println(json.toJson(geterateData()));
 			try
 			{
 				w.write(json.toJson(geterateData(properties)) + "\n");
@@ -68,52 +67,39 @@ public class JsonDataGenerator
 		return ThreadLocalRandom.current().nextInt(seed);
 	}
 
-	// @SuppressWarnings("deprecation")
 	private JsonDataRowBean geterateData(DataConfigBean properties)
 	{
 
 		JsonDataRowBean row = new JsonDataRowBean();
 
-		row.setClientLocation(properties.getLocationList().get(
-				getMyRandom(properties.getLocationList().size())));
+		row.setClientLocation(properties.getLocationList().get(getMyRandom(properties.getLocationList().size())));
 
-		row.setWebsiteSource(properties.getWebSourcesList().get(
-				getMyRandom(properties.getWebSourcesList().size())));
+		row.setWebsiteSource(properties.getWebSourcesList().get(getMyRandom(properties.getWebSourcesList().size())));
 
 		Calendar c = Calendar.getInstance();
 		int startYear = (int) properties.getYearStart();
 		int endYear = (int) properties.getYearEnd();
 		int rand = ThreadLocalRandom.current().nextInt(endYear - startYear);
-		c.set(startYear + rand, ThreadLocalRandom.current().nextInt(12),
-				ThreadLocalRandom.current().nextInt(28), ThreadLocalRandom
-						.current().nextInt(24), ThreadLocalRandom.current()
-						.nextInt(60), ThreadLocalRandom.current().nextInt(60));
+		c.set(startYear + rand, ThreadLocalRandom.current().nextInt(12), ThreadLocalRandom.current().nextInt(28), ThreadLocalRandom.current().nextInt(24), ThreadLocalRandom.current().nextInt(60), ThreadLocalRandom.current().nextInt(60));
 
-		SimpleDateFormat format1 = new SimpleDateFormat(
-				"yyyy-MM-dd_hh-mm-ss_zz");
-		// System.out.println(format1.format(c.getTime()));
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd_hh-mm-ss_zz");
 		row.setRequestTime(format1.format(c.getTime()));
 
 		row.setSessionId(UUID.randomUUID().toString());
 		row.setEvent("new");
 
-		UserBean uid = properties.getUserBeanList().get(
-				getMyRandom(properties.getUserBeanList().size()));
+		UserBean uid = properties.getUserBeanList().get(getMyRandom(properties.getUserBeanList().size()));
 		row.setUserId(uid.getUserId());
-		String act = properties.getActionsList().get(
-				getMyRandom(properties.getActionsList().size()));
+		String act = properties.getActionsList().get(getMyRandom(properties.getActionsList().size()));
 
 		row.setAction(act);
-		row.setClientIp(uid.getIpAddresses().get(
-				getMyRandom(uid.getIpAddresses().size())));
-		row.setOs(properties.getOsList().get(
-				getMyRandom(properties.getOsList().size())));
+		row.setClientIp(uid.getIpAddresses().get(getMyRandom(uid.getIpAddresses().size())));
+		row.setOs(properties.getOsList().get(getMyRandom(properties.getOsList().size())));
 		row.setUrl(properties.getBaseUrl()
 				+ "/"
 				+ act
 				+ "/"
-				+ properties.getProductList().get(
-						getMyRandom(properties.getProductList().size())));
+				+ properties.getProductList().get(getMyRandom(properties.getProductList().size())));
 		return row;
 	}
 }

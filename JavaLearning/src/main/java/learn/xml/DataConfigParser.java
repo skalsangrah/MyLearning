@@ -28,8 +28,7 @@ public class DataConfigParser
 			List<String> locationList = config.getList("locations.location");
 			data.setLocationList(locationList);
 
-			List<String> webSourcesList = config
-					.getList("website-sources.source");
+			List<String> webSourcesList = config.getList("website-sources.source");
 			data.setWebSourcesList(webSourcesList);
 			// HierarchicalConfiguration actions = config
 			// .configurationAt("actions");
@@ -38,8 +37,7 @@ public class DataConfigParser
 			List<String> actionsList = config.getList("actions.action");
 			data.setActionsList(actionsList);
 
-			List<AbstractConfiguration> usersList = config
-					.configurationsAt("users.user");
+			List<AbstractConfiguration> usersList = config.configurationsAt("users.user");
 
 			List<UserBean> userBeanList = new ArrayList<UserBean>();
 			for (AbstractConfiguration sub : usersList)

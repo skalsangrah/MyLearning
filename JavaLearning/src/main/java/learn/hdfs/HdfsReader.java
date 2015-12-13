@@ -17,6 +17,7 @@ public class HdfsReader
 	private String hdfsFileToRead;
 	private String hdfsUri;
 	private String hdfsPath;
+	private String localPath;
 
 	HdfsReader(String hdfsFileToRead, String hdfsUri, String hdfsPath)
 	{
@@ -60,6 +61,16 @@ public class HdfsReader
 		this.hdfsPath = hdfsPath;
 	}
 
+	public String getLocalPath()
+	{
+		return localPath;
+	}
+
+	public void setLocalPath(String localPath)
+	{
+		this.localPath = localPath;
+	}
+
 	public String read() throws IOException, URISyntaxException
 	{
 		String localFile = hdfsFileToRead + "_2";
@@ -67,11 +78,12 @@ public class HdfsReader
 		// 1. Get the instance of Configuration
 		Configuration configuration = new Configuration();
 
-		// 2. URI of the file to be read
-		URI uri = new URI(hdfsUri + hdfsPath + hdfsFileToRead);
+		// // 2. URI of the file to be read
+		// URI uri = new URI(hdfsUri + hdfsPath + hdfsFileToRead);
 
 		// 3. Get the instance of the HDFS
-		FileSystem hdfs = FileSystem.get(uri, configuration);
+		// FileSystem hdfs = FileSystem.get(uri, configuration);
+		FileSystem hdfs = FileSystem.get(new URI(hdfsUri), configuration);
 
 		// 4. A reference to hold the InputStream
 		InputStream inputStream = null;
@@ -81,12 +93,11 @@ public class HdfsReader
 		{
 			// 5. Prepare the Path, i.e similar to File class in Java, Path
 			// represents file in HDFS
-			Path path = new Path(uri);
-
 			// 6. Open a Input Stream to read the data from HDFS
-			inputStream = hdfs.open(path);
+			inputStream = hdfs.open(new Path(hdfsUri + hdfsPath
+					+ hdfsFileToRead));
 
-			File outFile = new File(localFile);
+			File outFile = new File(localPath + localFile);
 			fileOuputStream = new FileOutputStream(outFile);
 
 			// 7. Use the IOUtils to flush the data from the file to local file
@@ -95,8 +106,9 @@ public class HdfsReader
 		} finally
 		{
 			// 8. Close the InputStream once the data is read
-			IOUtils.closeStream(inputStream);
+			// IOUtils.closeStream(inputStream);
 			IOUtils.closeStream(fileOuputStream);
+			hdfs.close();
 		}
 		return localFile;
 	}

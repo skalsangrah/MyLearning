@@ -13,8 +13,12 @@ public class HadoopConfigParser
 		{
 			XMLConfiguration config = new XMLConfiguration(xmlConfigFile);
 
-			data.setHdfsuri(config.getString("hdfsuri"));
-			data.setHdfspath(config.getString("hdfspath"));
+			data.setHdfsUri(config.getString("hdfsuri"));
+			data.setHdfsPath(config.getString("hdfspath"));
+			data.setHdfsUser(config.getString("hdfsuser"));
+			data.setLocalPath(config.getString("localpath"));
+			data.setDataConfigPropertyFile(config.getString("dataproperty"));
+
 		} catch (ConfigurationException e)
 		{
 			// TODO Auto-generated catch block

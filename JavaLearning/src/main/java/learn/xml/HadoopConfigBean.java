@@ -2,33 +2,68 @@ package learn.xml;
 
 public class HadoopConfigBean
 {
-	private String hdfsuri;
-	private String hdfspath;
+	private String hdfsUri;
+	private String hdfsPath;
+	private String hdfsUser;
+	private String localPath;
+	private String dataConfigPropertyFile;
 
-	public String getHdfsuri()
+	public String getHdfsUri()
 	{
-		return hdfsuri;
+		return hdfsUri;
 	}
 
-	public void setHdfsuri(String hdfsuri)
+	public void setHdfsUri(String hdfsUri)
 	{
-		this.hdfsuri = hdfsuri;
+		this.hdfsUri = hdfsUri;
 	}
 
-	public String getHdfspath()
+	public String getHdfsPath()
 	{
-		return hdfspath;
+		return hdfsPath;
 	}
 
-	public void setHdfspath(String hdfspath)
+	public void setHdfsPath(String hdfsPath)
 	{
-		this.hdfspath = hdfspath;
+		this.hdfsPath = hdfsPath;
+	}
+
+	public String getHdfsUser()
+	{
+		return hdfsUser;
+	}
+
+	public void setHdfsUser(String hdfsUser)
+	{
+		this.hdfsUser = hdfsUser;
+	}
+
+	public String getLocalPath()
+	{
+		return localPath;
+	}
+
+	public void setLocalPath(String localPath)
+	{
+		this.localPath = localPath;
+	}
+
+	public String getDataConfigPropertyFile()
+	{
+		return dataConfigPropertyFile;
+	}
+
+	public void setDataConfigPropertyFile(String dataConfigPropertyFile)
+	{
+		this.dataConfigPropertyFile = dataConfigPropertyFile;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "BeanData [ " + "hdfsuri=" + hdfsuri + "hdfspath=" + hdfspath
-				+ "]";
+		return "HadoopConfigBean [hdfsUri=" + hdfsUri + ", hdfsPath="
+				+ hdfsPath + ", hdfsUser=" + hdfsUser + ", localPath="
+				+ localPath + ", dataConfigPropertyFile="
+				+ dataConfigPropertyFile + "]";
 	}
 }

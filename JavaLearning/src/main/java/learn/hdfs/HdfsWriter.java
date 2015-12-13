@@ -17,6 +17,8 @@ import org.apache.hadoop.util.Progressable;
 public class HdfsWriter
 {
 	private String localFileToWrite;
+	private String localPath;
+
 	private String hdfsUri;
 	private String hdfsPath;
 
@@ -40,6 +42,16 @@ public class HdfsWriter
 	public void setLocalFileToWrite(String localFileToWrite)
 	{
 		this.localFileToWrite = localFileToWrite;
+	}
+
+	public String getLocalPath()
+	{
+		return localPath;
+	}
+
+	public void setLocalPath(String localPath)
+	{
+		this.localPath = localPath;
 	}
 
 	public String getHdfsUri()
@@ -68,8 +80,8 @@ public class HdfsWriter
 		Configuration configuration = new Configuration();
 
 		// 2. Create an InputStream to read the data from local file
-		InputStream inputStream = new BufferedInputStream(new FileInputStream(
-				localFileToWrite));
+		InputStream inputStream = new BufferedInputStream(new FileInputStream(localPath
+				+ localFileToWrite));
 
 		// 3. Get the HDFS instance
 		FileSystem hdfs = FileSystem.get(new URI(hdfsUri), configuration);

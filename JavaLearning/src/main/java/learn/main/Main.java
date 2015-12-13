@@ -7,10 +7,9 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		HadoopConfigBean hadoopProperties = HadoopConfigParser
-				.parse("HadoopProperties.xml");
+		HadoopConfigBean hdConfig = HadoopConfigParser.parse("D://MyLearning//JavaLearning//config//HadoopProperties.xml");
 
-		new Driver(hadoopProperties).driveWithTestData();
-		new Driver(hadoopProperties).drive("HadoopProperties.xml");
+		new Driver(hdConfig).driveWithTestData();
+		// new Driver(hdConfig).drive("HadoopProperties.xml");
 	}
 }

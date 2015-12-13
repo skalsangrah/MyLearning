@@ -33,22 +33,27 @@ public class Driver
 	 * @param args
 	 * @return
 	 */
-	public String genData(DataConfigBean properties)
+	public String genData(DataConfigBean properties, String localPath)
 	{
 		JsonDataGenerator dataGenerator = new JsonDataGenerator();
-		String outFilename = dataGenerator.generate(properties);
-		System.out.println("Generated json data into file: " + outFilename);
+		String outFilename = dataGenerator.generate(properties, localPath);
+		System.out.println("Generated json data into file: " + outFilename
+				+ " @path: " + localPath);
 		return outFilename;
 	}
 
 	public void hdfsWrite(String fName)
 	{
-		System.out.println("Attempting to write to HDFS: " + fName);
+		System.out.println("Attempting to write file: " + fName + " @ path:"
+				+ hadoopProperties.getLocalPath() + " to HDFS path: "
+				+ hadoopProperties.getHdfsUri()
+				+ hadoopProperties.getHdfsPath());
 
 		HdfsWriter hdfsW = new HdfsWriter();
-		hdfsW.setHdfsPath(hadoopProperties.getHdfspath());
-		hdfsW.setHdfsUri(hadoopProperties.getHdfsuri());
+		hdfsW.setHdfsPath(hadoopProperties.getHdfsPath());
+		hdfsW.setHdfsUri(hadoopProperties.getHdfsUri());
 		hdfsW.setLocalFileToWrite(fName);
+		hdfsW.setLocalPath(hadoopProperties.getLocalPath());
 
 		try
 		{
@@ -62,17 +67,22 @@ public class Driver
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Write to HDFS done: " + fName);
+		System.out.println("Write to HDFS done.");
 	}
 
 	public void hdfsRead(String fName)
 	{
-		System.out.println("Attempting to read from HDFS: " + fName);
+		System.out.println("Attempting to read HDFS File: " + fName
+				+ " from HDFS Path: " + hadoopProperties.getHdfsUri()
+				+ hadoopProperties.getHdfsPath() + " Into file" + fName + "_2"
+				+ " @path: " + hadoopProperties.getLocalPath());
 
 		HdfsReader hdfsR = new HdfsReader();
-		hdfsR.setHdfsPath(hadoopProperties.getHdfspath());
-		hdfsR.setHdfsUri(hadoopProperties.getHdfsuri());
+		hdfsR.setHdfsPath(hadoopProperties.getHdfsPath());
+		hdfsR.setHdfsUri(hadoopProperties.getHdfsUri());
 		hdfsR.setHdfsFileToRead(fName);
+		hdfsR.setLocalPath(hadoopProperties.getLocalPath());
+
 		String fNewName = null;
 		try
 		{
@@ -100,10 +110,10 @@ public class Driver
 	{
 		System.out.println("Attempting to generate test data");
 
-		DataConfigBean properties = DataConfigParser
-				.parse("DataProperties.xml");
-		String fName = genData(properties);
-		System.out.println("Attempting to generate test data.. Done");
+		DataConfigBean properties = DataConfigParser.parse(hadoopProperties.getDataConfigPropertyFile());
+
+		String fName = genData(properties, hadoopProperties.getLocalPath());
+		System.out.println("Generating test data done.");
 
 		drive(fName);
 	}
