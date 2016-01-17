@@ -1,0 +1,4 @@
+First line in this newly create text file 
+And this is second 
+ one having a new file character here
+ as well
